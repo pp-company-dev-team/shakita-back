@@ -1,0 +1,40 @@
+{
+    "version": "2.0.0",
+    "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true
+      },
+    "tasks": [
+        {
+            "label": "x-postgres",
+            "command": "cd services && make upx NAME=postgres",
+            "args": [],
+            "type": "shell",
+            "problemMatcher": []
+        },
+        {
+            "label": "x-auth",
+            "command": "cd services && make upx NAME=auth",
+            "args": [],
+            "type": "shell",
+            "problemMatcher": []
+        },
+        {
+            "label": "l-postgres",
+            "command": "cd services && make upl NAME=postgres",
+            "args": [],
+            "type": "shell",
+            "problemMatcher": []
+        },
+        {
+            "label": "l-auth",
+            "command": "cd services && make upl NAME=auth",
+            "args": [],
+            "type": "shell",
+            "problemMatcher": []
+        },
+    ]
+}

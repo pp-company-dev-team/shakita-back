@@ -1,12 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
-
+import { Test } from './test.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    @InjectRepository(Test)
+    private testRepository: Repository<Test>,
+  ) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  async getAll() {
+    return await this.testRepository.find();
   }
 }

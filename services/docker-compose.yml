@@ -1,0 +1,28 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:13
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: shakita
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  auth:
+    image: pp-auth
+    build:
+      context: .
+      dockerfile: auth/Dockerfile.dev
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./auth:/app
+
+volumes:
+  pgdata:
