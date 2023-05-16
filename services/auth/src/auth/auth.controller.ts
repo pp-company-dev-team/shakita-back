@@ -1,4 +1,11 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Request,
+  UnauthorizedException,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 
@@ -11,7 +18,7 @@ export class AuthController {
     const { username, password } = req.body;
     const user = await this.authService.validateUser(username, password);
     if (!user) {
-      // В случае невалидных учетных данных можешь выбросить исключение UnauthorizedException
+      throw new UnauthorizedException();
     }
     const token = await this.authService.generateToken(user);
     return { token };
