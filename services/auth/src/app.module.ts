@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { Test } from './test.entity';
-// test for merge
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -16,9 +16,10 @@ import { Test } from './test.entity';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Test]),
+    UserModule,
+    AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}
