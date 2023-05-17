@@ -25,7 +25,6 @@ export class AuthMiddleware implements NestMiddleware {
             name: { value: string };
           }
         ).name.value;
-        console.log('methodName', methodName);
       },
     });
 
