@@ -89,3 +89,6 @@ common/autoinstallers/*/.npmrc
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# graphql
+*.gql
