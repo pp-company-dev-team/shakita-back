@@ -3,10 +3,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './guard/jwt.strategy';
 import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
 import { UserService } from 'src/user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/user/user.entity';
+import { User } from 'src/user/graphql/user.entity';
+import { AuthResolver } from './graphql/auth.resolver';
 
 @Module({
   imports: [
@@ -17,8 +17,7 @@ import { User } from 'src/user/user.entity';
     }),
     TypeOrmModule.forFeature([User]),
   ],
-  providers: [JwtStrategy, AuthService, UserService],
-  controllers: [AuthController],
+  providers: [JwtStrategy, AuthService, UserService, AuthResolver],
   exports: [PassportModule, JwtModule],
 })
 export class AuthModule {}
