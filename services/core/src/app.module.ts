@@ -1,8 +1,13 @@
-import { MailerModule } from '@nestjs-modules/mailer';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { AuthMiddleware } from './auth/auth.middleware';
+import { JwtGuard } from './auth/guard/jwt.guard';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { SessionModule } from './session/session.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 import { ApplicationModule } from './application/application.module';
 
 @Module({
@@ -23,6 +28,10 @@ import { ApplicationModule } from './application/application.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    UserModule,
+    AuthModule,
+    SessionModule,
+    ApplicationModule,
     MailerModule.forRoot({
       transport: {
         host: 'smtp.gmail.com',
@@ -34,7 +43,11 @@ import { ApplicationModule } from './application/application.module';
         },
       },
     }),
-    ApplicationModule,
   ],
+  providers: [JwtGuard],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes('*');
+  }
+}

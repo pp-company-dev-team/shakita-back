@@ -8,25 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ApplicationStatus } from './application.enum';
-
-@Entity()
-@ObjectType()
-export class User extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  @Field()
-  id: string;
-
-  @Column()
-  @Field()
-  email: string;
-
-  @Column()
-  @Field()
-  password: string;
-
-  @OneToMany(() => Application, (application) => application.user)
-  applications?: Application[];
-}
+import { User } from 'src/user/graphql/user.entity';
 
 @Entity()
 @ObjectType()

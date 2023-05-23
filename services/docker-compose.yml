@@ -18,7 +18,7 @@ services:
       context: .
       dockerfile: auth/Dockerfile.dev
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - postgres
     volumes:
@@ -30,7 +30,7 @@ services:
       context: .
       dockerfile: core/Dockerfile.dev
     ports:
-      - "3001:3001"
+      - "3000:3000"
     depends_on:
       - postgres
     volumes:
