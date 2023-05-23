@@ -1,4 +1,4 @@
-import { Resolver, Query, Args } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { ApplicationService } from '../application.service';
 import { Application } from './application.entity';
 import { DeleteResult, UpdateResult } from 'typeorm';
@@ -12,29 +12,30 @@ export class ApplicationResolver {
 
   @Query(() => Application, { nullable: true })
   async findOneApplication(@Args() args: UniqueArgs): Promise<Application> {
-    const user = await this.applicationService.findById(args.id);
-    return user;
+    const application = await this.applicationService.findById(args.id);
+    return application;
   }
 
-  @Query(() => Application)
+  @Mutation(() => Application)
   async createOneApplication(
     @Args() args: CreateOneApplicationArgs,
   ): Promise<Application> {
-    const user = await this.applicationService.create(args);
-    return user;
+    console.log(args);
+    const application = await this.applicationService.create(args);
+    return application;
   }
 
-  @Query(() => Application)
+  @Mutation(() => Application)
   async deleteOneApplication(@Args() args: UniqueArgs): Promise<DeleteResult> {
-    const user = await this.applicationService.delete(args.id);
-    return user;
+    const application = await this.applicationService.delete(args.id);
+    return application;
   }
 
-  @Query(() => Application)
+  @Mutation(() => Application)
   async updateOneApplication(
     @Args() args: UpdateOneApplicationArgs,
   ): Promise<UpdateResult> {
-    const user = await this.applicationService.update(args);
-    return user;
+    const application = await this.applicationService.update(args);
+    return application;
   }
 }

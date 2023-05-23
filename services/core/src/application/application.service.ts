@@ -10,21 +10,26 @@ export class ApplicationService {
     private applicationRepository: Repository<Application>,
   ) {}
 
-  async findByUsername(email: string) {
+  async findByUsername(date: Date) {
     return await this.applicationRepository.findOne({
       where: {
-        email,
+        date,
       },
     });
   }
 
   async findById(id: string) {
-    return await this.applicationRepository.findOneBy({
-      id,
+    const test = await this.applicationRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ['user'],
     });
+    console.log(test);
+    return test;
   }
 
-  async create(args: any) {
+  async create(args: { place: string; date: Date }) {
     return await this.applicationRepository.save(args);
   }
 
