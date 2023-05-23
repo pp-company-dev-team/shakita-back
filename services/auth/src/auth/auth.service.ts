@@ -1,16 +1,25 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import { User } from '../user/graphql/user.entity';
-import { SessionService } from 'src/session/session.service';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-    private readonly sessionService: SessionService,
   ) {}
+
+  async checkRefreshToken(token: string) {
+    // TODO env
+    const decodedToken = await jwt.verify(token, 'your_secret_key');
+    const expirationDate = new Date(decodedToken.exp * 1000);
+    const currentDate = new Date();
+    if (expirationDate < currentDate) {
+      throw new UnauthorizedException();
+    }
+  }
 
   async validateUser(username: string, password: string): Promise<User | null> {
     const user = await this.userService.findByUsername(username);
@@ -36,8 +45,6 @@ export class AuthService {
     const refreshToken = await this.jwtService.signAsync(refreshTokenPayload, {
       expiresIn: '7d',
     });
-
-    // await this.sessionService.create({ user, refreshToken });
 
     return { accessToken, refreshToken };
   }

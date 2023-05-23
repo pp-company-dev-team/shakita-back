@@ -23,10 +23,30 @@ export class SessionService {
     });
   }
 
+  async findSessionByUserIdAndIpAndUserAgent(
+    user: any,
+    ip: string,
+    userAgent: any,
+  ) {
+    const sessions = await this.sessionRepository.find({
+      where: {
+        user,
+        ip,
+      },
+    });
+
+    const session = sessions.find(
+      (session) =>
+        session.userAgent?.browser?.name === userAgent?.browser?.name,
+    );
+
+    return session;
+  }
+
   async update(args: any) {
-    console.log('args', args);
-    return await this.sessionRepository.update(args.id, {
-      refreshToken: args.refreshToken,
+    const { id, ...data } = args;
+    return await this.sessionRepository.update(id, {
+      ...data,
     });
   }
 }

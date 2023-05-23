@@ -16,19 +16,20 @@ export class UserResolver {
     return user;
   }
 
-  @Query(() => User)
+  // TODO maybe del
+  @Mutation(() => User)
   async createOneUser(@Args() args: CreateOneUserArgs): Promise<User> {
     const user = await this.userService.create(args);
     return user;
   }
 
-  @Query(() => User)
+  @Mutation(() => User)
   async deleteOneUser(@Args() args: UniqueArgs): Promise<DeleteResult> {
     const user = await this.userService.delete(args.id);
     return user;
   }
 
-  @Query(() => User)
+  @Mutation(() => User)
   async updateOneUser(@Args() args: UpdateOneUserArgs): Promise<UpdateResult> {
     const user = await this.userService.update(args);
     return user;

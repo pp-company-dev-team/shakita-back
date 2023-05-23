@@ -16,7 +16,6 @@ export class AuthMiddleware implements NestMiddleware {
 
   async use(req: Request, res: Response, next: NextFunction) {
     if (req.body?.query) {
-      // console.log(req.body);
       const ast = parse(req.body.query);
 
       let methodName: string | undefined;
