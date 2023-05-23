@@ -7,15 +7,16 @@ import { UserService } from 'src/user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/user/graphql/user.entity';
 import { AuthResolver } from './graphql/auth.resolver';
+import { SessionModule } from 'src/session/session.module';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: 'your_secret_key', // Замени на свой секретный ключ
-      signOptions: { expiresIn: '1d' }, // Настройки JWT
     }),
     TypeOrmModule.forFeature([User]),
+    SessionModule,
   ],
   providers: [JwtStrategy, AuthService, UserService, AuthResolver],
   exports: [PassportModule, JwtModule],

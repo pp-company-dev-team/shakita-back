@@ -11,34 +11,43 @@ import { SelectionNode, parse, visit } from 'graphql';
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly jwtGuard: JwtGuard) {}
-  private publicMethods: string[] = ['login', 'register'];
+  private publicMethods: string[] = ['login', 'register', 'refresh'];
+  private supportMethods: string[] = ['__schema'];
 
   async use(req: Request, res: Response, next: NextFunction) {
-    const ast = parse(req.body?.query ?? null);
+    if (req.body?.query) {
+      // console.log(req.body);
+      const ast = parse(req.body.query);
 
-    let methodName: string | undefined;
+      let methodName: string | undefined;
 
-    visit(ast, {
-      OperationDefinition(node) {
-        methodName = (
-          node.selectionSet.selections[0] as SelectionNode & {
-            name: { value: string };
-          }
-        ).name.value;
-      },
-    });
+      visit(ast, {
+        OperationDefinition(node) {
+          methodName = (
+            node.selectionSet.selections[0] as SelectionNode & {
+              name: { value: string };
+            }
+          ).name.value;
+        },
+      });
 
-    if (!methodName) {
-      throw new BadRequestException();
-    }
+      if (!methodName) {
+        throw new BadRequestException();
+      }
 
-    if (this.publicMethods.includes(methodName ?? 'wrongMethod')) {
+      if (
+        this.publicMethods.includes(methodName) ||
+        this.supportMethods.includes(methodName)
+      ) {
+        return next();
+      }
+
+      const context = new ExecutionContextHost([req, res, next]);
+
+      await this.jwtGuard.canActivate(context);
       return next();
     }
 
-    const context = new ExecutionContextHost([req, res, next]);
-
-    await this.jwtGuard.canActivate(context);
     return next();
   }
 }

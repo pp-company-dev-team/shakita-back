@@ -6,6 +6,7 @@ import { AuthMiddleware } from './auth/auth.middleware';
 import { JwtGuard } from './auth/guard/jwt.guard';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { SessionModule } from './session/session.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     }),
     UserModule,
     AuthModule,
+    SessionModule,
   ],
   providers: [JwtGuard],
 })

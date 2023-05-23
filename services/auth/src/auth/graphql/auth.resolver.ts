@@ -4,12 +4,15 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { LoginArgs } from './args/LoginArgs';
 import { Tokens } from './models/Tokens';
 import { UserService } from 'src/user/user.service';
+import { RefreshArgs } from './args/RefreshArgs';
+import { SessionService } from 'src/session/session.service';
 
 @Resolver()
 export class AuthResolver {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
+    private readonly sessionService: SessionService,
   ) {}
 
   @Mutation(() => Tokens)
@@ -18,8 +21,8 @@ export class AuthResolver {
     if (!user) {
       throw new UnauthorizedException();
     }
-    const token = await this.authService.generateToken(user);
-    return { token };
+    const tokens = await this.authService.generateTokens(user);
+    return tokens;
   }
 
   @Mutation(() => Tokens)
@@ -28,8 +31,24 @@ export class AuthResolver {
     if (!user) {
       throw new BadRequestException();
     }
-    const token = await this.authService.generateToken(user);
-    return { token };
+    const tokens = await this.authService.generateTokens(user);
+    return tokens;
+  }
+
+  @Query(() => Tokens)
+  async refresh(@Args() args: RefreshArgs): Promise<Tokens> {
+    const session = await this.sessionService.findSessionWithUserByRefreshToken(
+      args.token,
+    );
+    if (!session) {
+      throw new BadRequestException();
+    }
+    const tokens = await this.authService.generateTokens(session.user);
+    // await this.sessionService.update({
+    //   ...session,
+    //   refreshToken: tokens.refreshToken,
+    // });
+    return tokens;
   }
 
   // TODO
