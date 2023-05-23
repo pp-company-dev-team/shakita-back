@@ -3,8 +3,11 @@ import { Field, ArgsType } from '@nestjs/graphql';
 @ArgsType()
 export class UpdateOneApplicationArgs {
   @Field()
-  email: string;
+  id: string;
 
   @Field()
   place: string;
+
+  @Field()
+  date: Date;
 }

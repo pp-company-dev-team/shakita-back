@@ -21,7 +21,10 @@ export class ApplicationResolver {
     @Args() args: CreateOneApplicationArgs,
   ): Promise<Application> {
     console.log(args);
-    const application = await this.applicationService.create(args);
+    const application = await this.applicationService.create({
+      date: args.date,
+      place: args.place,
+    });
     return application;
   }
 
