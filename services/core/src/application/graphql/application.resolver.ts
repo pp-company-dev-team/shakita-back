@@ -20,7 +20,6 @@ export class ApplicationResolver {
   async createOneApplication(
     @Args() args: CreateOneApplicationArgs,
   ): Promise<Application> {
-    console.log(args);
     const application = await this.applicationService.create({
       date: args.date,
       place: args.place,

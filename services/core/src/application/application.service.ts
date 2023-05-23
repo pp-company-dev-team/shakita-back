@@ -25,7 +25,6 @@ export class ApplicationService {
       },
       relations: ['user'],
     });
-    console.log(test);
     return test;
   }
 
