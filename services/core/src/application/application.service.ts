@@ -10,7 +10,7 @@ export class ApplicationService {
     private applicationRepository: Repository<Application>,
   ) {}
 
-  async findByUsername(date: Date) {
+  async findByDate(date: Date) {
     return await this.applicationRepository.findOne({
       where: {
         date,

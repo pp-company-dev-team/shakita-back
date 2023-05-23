@@ -19,12 +19,12 @@ export class ShedulesService {
     const applications = await this.applicationRepository.findBy({
       status: ApplicationStatus.APPROVED,
     });
-    // applications.forEach(() => {
-    //     this.mailerService.sendMail({
-    //         to: 'petr0v21vs@gmail.com',
-    //         subject: 'Test',
-    //         text: 'Test',
-    //       });
-    // })
+    applications.forEach(() => {
+      this.mailerService.sendMail({
+        to: 'petr0v21vs@gmail.com',
+        subject: 'Test',
+        text: 'Test',
+      });
+    });
   }
 }
