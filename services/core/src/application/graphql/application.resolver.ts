@@ -1,10 +1,10 @@
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { ApplicationService } from '../application.service';
 import { Application } from './application.entity';
-import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateOneApplicationArgs } from './args/CreateOneApplicationArgs';
 import { UpdateOneApplicationArgs } from './args/UpdateOneApplicationArgs';
 import { UniqueArgs } from 'src/graphql/args/UniqueArgs';
+import { SuccessOutput } from 'src/graphql/dto/SuccessOutput';
 
 @Resolver(() => Application)
 export class ApplicationResolver {
@@ -27,17 +27,17 @@ export class ApplicationResolver {
     return application;
   }
 
-  @Mutation(() => Application)
-  async deleteOneApplication(@Args() args: UniqueArgs): Promise<DeleteResult> {
-    const application = await this.applicationService.delete(args.id);
-    return application;
+  @Mutation(() => SuccessOutput)
+  async deleteOneApplication(@Args() args: UniqueArgs): Promise<SuccessOutput> {
+    await this.applicationService.delete(args.id);
+    return { success: true };
   }
 
   @Mutation(() => Application)
   async updateOneApplication(
     @Args() args: UpdateOneApplicationArgs,
-  ): Promise<UpdateResult> {
-    const application = await this.applicationService.update(args);
-    return application;
+  ): Promise<SuccessOutput> {
+    await this.applicationService.update(args);
+    return { success: true };
   }
 }

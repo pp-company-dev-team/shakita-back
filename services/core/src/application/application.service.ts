@@ -19,13 +19,12 @@ export class ApplicationService {
   }
 
   async findById(id: string) {
-    const test = await this.applicationRepository.findOne({
+    return await this.applicationRepository.findOne({
       where: {
         id,
       },
       relations: ['user'],
     });
-    return test;
   }
 
   async create(args: { place: string; date: Date }) {
