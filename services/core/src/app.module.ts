@@ -9,6 +9,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { SessionModule } from './session/session.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ApplicationModule } from './application/application.module';
+import { BonusModule } from './bonus/bonus.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ApplicationModule } from './application/application.module';
     UserModule,
     AuthModule,
     SessionModule,
+    BonusModule,
     ApplicationModule,
     MailerModule.forRoot({
       transport: {

@@ -63,16 +63,25 @@ export class AuthResolver {
   }
 
   @Mutation(() => Tokens)
-  async register(@Args() args: LoginArgs): Promise<Tokens> {
+  async register(
+    @Args() args: LoginArgs,
+    @Context() context: any,
+  ): Promise<Tokens> {
     const user = await this.userService.create(args);
     if (!user) {
       throw new BadRequestException();
     }
+    const ip = context.req.ip; //TODO true ip
+    const userAgent = context.req.headers['user-agent'];
+    const parsedUserAgent = this.parser.setUA(userAgent).getResult();
+
     const tokens = await this.authService.generateTokens(user);
 
     await this.sessionService.create({
       user,
       refreshToken: tokens.refreshToken,
+      ip,
+      userAgent: parsedUserAgent,
     });
 
     return tokens;
