@@ -2,13 +2,13 @@ import { Field, ArgsType, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class PayloadArgs {
-  @Field()
+  @Field({ nullable: true })
   phone?: string;
 
-  @Field()
+  @Field({ nullable: true })
   telegram?: string;
 
-  @Field()
+  @Field({ nullable: true })
   instagram?: string;
 }
 
@@ -23,12 +23,12 @@ export class CreateOneApplicationArgs {
   @Field()
   name: string;
 
-  @Field(() => PayloadArgs)
+  @Field(() => PayloadArgs, { nullable: true })
   payload?: PayloadArgs;
 
   @Field()
   email: string;
 
-  @Field()
-  notificationOnMail: boolean;
+  @Field({ defaultValue: true })
+  notificationOnMail?: boolean;
 }
