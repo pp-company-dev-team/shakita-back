@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Application } from './graphql/application.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, FindOperator, Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { CreateOneApplicationArgs } from './graphql/args/CreateOneApplicationArgs';
 import { User } from 'src/user/graphql/user.entity';
 import { UpdateOneApplicationArgs } from './graphql/args/UpdateOneApplicationArgs';
 import { ApplicationStatus } from './graphql/application.enum';
 import { GetApplicationsArgs } from './graphql/args/GetApplicationsArgs';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class ApplicationService {
@@ -15,6 +16,8 @@ export class ApplicationService {
     private applicationRepository: Repository<Application>,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+
+    private mailerService: MailerService,
   ) {}
 
   async find(args: GetApplicationsArgs) {
@@ -72,28 +75,32 @@ export class ApplicationService {
 
   async create(args: CreateOneApplicationArgs) {
     console.log(args);
-    const user = await this.userRepository.findOneBy({
+    let user = await this.userRepository.findOneBy({
       email: args.email,
     });
-    console.log(user);
-    if (user) {
-      const res = await this.applicationRepository.save({
-        date: args.date,
-        place: args.place,
-        user: user,
+    if (!user) {
+      user = await this.userRepository.save({
+        email: args.email,
+        password: args.email,
       });
-      console.log(res);
-      return res;
     }
-    const unAuthUser = await this.userRepository.save({
-      email: args.email,
-      password: args.email,
+    console.log(user);
+    this.mailerService.sendMail({
+      to: 'bilwork.info@gmail.com',
+      subject: 'Test',
+      text: 'New application',
     });
-    console.log(unAuthUser);
+    if (args.notificationOnMail) {
+      this.mailerService.sendMail({
+        to: user.email,
+        subject: 'Created Application',
+        text: 'Application pending',
+      });
+    }
     const res = await this.applicationRepository.save({
       date: args.date,
       place: args.place,
-      user: unAuthUser,
+      user: user,
     });
     console.log(res);
     return res;
@@ -105,6 +112,19 @@ export class ApplicationService {
 
   async update(args: UpdateOneApplicationArgs) {
     const { id, ...updateArgs } = args;
+    const application = await this.applicationRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ['user'],
+    });
+    this.mailerService.sendMail({
+      to: application.user.email,
+      subject: 'Change Application',
+      text: `Application ${updateArgs.status ?? application.status} at place: ${
+        updateArgs.place ?? application.place
+      } on time ${updateArgs.date ?? application.date} `,
+    });
     return await this.applicationRepository.update(id, updateArgs);
   }
 }
