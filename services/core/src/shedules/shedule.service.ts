@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Application } from 'src/application/graphql/application.entity';
@@ -15,14 +15,25 @@ export class ShedulesService {
   ) {}
 
   @Cron(CronExpression.EVERY_HOUR)
-  async sendMailBeforTime() {
+  async sendMailBeforTimeApplication() {
+    // add custom timezone
+    const timeNow = new Date(new Date().getHours() + 2);
+    const time_from = new Date(new Date().setHours(timeNow.getHours() + 1));
+    const time_to = new Date(
+      new Date(new Date().setHours(time_from.getHours() + 1)).setMilliseconds(
+        -1,
+      ),
+    );
     const applications = await this.applicationRepository.findBy({
+      date: Between(time_from, time_to),
       status: ApplicationStatus.APPROVED,
     });
-    applications.forEach(() => {
+    console.log(timeNow, time_from, time_to);
+    console.log(applications);
+    applications.forEach((application) => {
       this.mailerService.sendMail({
-        to: 'petr0v21vs@gmail.com',
-        subject: 'Test',
+        to: application.user.email,
+        subject: 'Your application time after one hour',
         text: 'Test',
       });
     });
