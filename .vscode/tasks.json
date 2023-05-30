@@ -9,6 +9,20 @@
   },
   "tasks": [
     {
+      "label": "build-admin",
+      "command": "cd services && make build-dev NAME=admin",
+      "args": [],
+      "type": "shell",
+      "problemMatcher": []
+    },
+    {
+      "label": "build-client",
+      "command": "cd services && make build-dev NAME=client",
+      "args": [],
+      "type": "shell",
+      "problemMatcher": []
+    },
+    {
       "label": "x-postgres",
       "command": "cd services && make upx NAME=postgres",
       "args": [],
@@ -25,6 +39,20 @@
     {
       "label": "x-core",
       "command": "cd services && make upx NAME=core",
+      "args": [],
+      "type": "shell",
+      "problemMatcher": []
+    },
+    {
+      "label": "x-admin",
+      "command": "cd services && make upx NAME=admin",
+      "args": [],
+      "type": "shell",
+      "problemMatcher": []
+    },
+    {
+      "label": "x-client",
+      "command": "cd services && make upx NAME=client",
       "args": [],
       "type": "shell",
       "problemMatcher": []
@@ -50,5 +78,19 @@
       "type": "shell",
       "problemMatcher": []
     }
+    {
+      "label": "l-admin",
+      "command": "cd services && make upl NAME=admin",
+      "args": [],
+      "type": "shell",
+      "problemMatcher": []
+    },
+    {
+      "label": "l-client",
+      "command": "cd services && make upl NAME=client",
+      "args": [],
+      "type": "shell",
+      "problemMatcher": []
+    },
   ]
 }
