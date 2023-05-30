@@ -28,7 +28,6 @@ export class ApplicationService {
         ).setMilliseconds(-1),
       );
     }
-    console.log(args);
     return await this.applicationRepository.find({
       where: {
         date: args.date_from ? Between(args.date_from, args.date_to) : null,
@@ -74,7 +73,6 @@ export class ApplicationService {
   }
 
   async create(args: CreateOneApplicationArgs) {
-    console.log(args);
     let user = await this.userRepository.findOneBy({
       email: args.email,
     });
@@ -84,7 +82,7 @@ export class ApplicationService {
         password: args.email,
       });
     }
-    console.log(user);
+    //TODO
     this.mailerService.sendMail({
       to: 'bilwork.info@gmail.com',
       subject: 'Test',
@@ -97,13 +95,11 @@ export class ApplicationService {
         text: 'Application pending',
       });
     }
-    const res = await this.applicationRepository.save({
+    return await this.applicationRepository.save({
       date: args.date,
       place: args.place,
       user: user,
     });
-    console.log(res);
-    return res;
   }
 
   async delete(id: string) {

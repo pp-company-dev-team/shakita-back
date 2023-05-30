@@ -10,6 +10,7 @@ import { SessionModule } from './session/session.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ApplicationModule } from './application/application.module';
 import { BonusModule } from './bonus/bonus.module';
+import { ShedulesModule } from './shedules/shedules.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { BonusModule } from './bonus/bonus.module';
     SessionModule,
     BonusModule,
     ApplicationModule,
+    ShedulesModule,
     MailerModule.forRoot({
       transport: {
         host: 'smtp.gmail.com',

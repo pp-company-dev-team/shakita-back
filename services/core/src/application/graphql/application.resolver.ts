@@ -25,7 +25,6 @@ export class ApplicationResolver {
   async findApplicationsByDate(
     @Args() args: GetApplicationsByDateArgs,
   ): Promise<Application[]> {
-    console.log(args);
     return await this.applicationService.findByDateAndHours(args.date);
   }
 
@@ -33,30 +32,21 @@ export class ApplicationResolver {
   async findApplications(
     @Args() args: GetApplicationsArgs,
   ): Promise<Application[]> {
-    console.log(args);
-    const applications = await this.applicationService.find(args);
-    console.log(applications);
-    return applications;
+    return await this.applicationService.find(args);
   }
 
   @Query(() => [Application], { nullable: true })
   async findApplicationsHistory(
     @Args() args: GetApplicationsHystoryArgs,
   ): Promise<Application[]> {
-    console.log(args);
-    const applications = await this.applicationService.getApplicationHistory(
-      args.email,
-    );
-    console.log(applications);
-    return applications;
+    return await this.applicationService.getApplicationHistory(args.email);
   }
 
   @Mutation(() => Application)
   async createOneApplication(
     @Args() args: CreateOneApplicationArgs,
   ): Promise<Application> {
-    const application = await this.applicationService.create(args);
-    return application;
+    return await this.applicationService.create(args);
   }
 
   @Mutation(() => SuccessOutput)
