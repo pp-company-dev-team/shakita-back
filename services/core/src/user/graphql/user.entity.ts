@@ -11,6 +11,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { UserRole } from './userRole.enum';
 
 @Entity()
 @ObjectType()
@@ -26,6 +27,10 @@ export class User extends BaseEntity {
   @Column()
   @Field()
   password: string;
+
+  @Column({ default: UserRole.unregisteredUser })
+  @Field(() => UserRole)
+  role: UserRole;
 
   @CreateDateColumn()
   @Field()

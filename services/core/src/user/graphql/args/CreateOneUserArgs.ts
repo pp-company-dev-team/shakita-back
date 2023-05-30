@@ -1,4 +1,5 @@
 import { Field, ArgsType } from '@nestjs/graphql';
+import { UserRole } from '../userRole.enum';
 
 @ArgsType()
 export class CreateOneUserArgs {
@@ -7,4 +8,7 @@ export class CreateOneUserArgs {
 
   @Field()
   password: string;
+
+  @Field(() => UserRole, { defaultValue: UserRole.unregisteredUser })
+  role?: UserRole;
 }
