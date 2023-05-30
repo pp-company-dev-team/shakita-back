@@ -81,7 +81,7 @@ export class AuthResolver {
       user,
       refreshToken: tokens.refreshToken,
       ip,
-      parsedUserAgent,
+      userAgent: parsedUserAgent,
     });
 
     return tokens;

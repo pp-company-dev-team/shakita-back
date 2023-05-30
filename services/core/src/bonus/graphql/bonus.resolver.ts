@@ -6,7 +6,6 @@ import { BonusTicket } from './entities/bonusTicket.entity';
 import { ActiveBonusTicketArgs } from './args/ActiveBonusTicketArgs';
 import { CreateOneBonusArgs } from './args/CreateOneBonusArgs';
 import { CreateOneBonusTicketArgs } from './args/CreateOneBonusTicketArgs';
-import { ActivatedBonus } from './entities/activatedBonus.entity';
 import { SuccessOutput } from 'src/graphql/dto/SuccessOutput';
 
 @Resolver()

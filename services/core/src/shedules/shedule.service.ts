@@ -16,7 +16,7 @@ export class ShedulesService {
 
   @Cron(CronExpression.EVERY_HOUR)
   async sendMailBeforTimeApplication() {
-    // add custom timezone
+    //TODO add custom timezone
     const timeNow = new Date(new Date().getHours() + 2);
     const time_from = new Date(new Date().setHours(timeNow.getHours() + 1));
     const time_to = new Date(
@@ -28,8 +28,7 @@ export class ShedulesService {
       date: Between(time_from, time_to),
       status: ApplicationStatus.APPROVED,
     });
-    console.log(timeNow, time_from, time_to);
-    console.log(applications);
+    //TODO
     applications.forEach((application) => {
       this.mailerService.sendMail({
         to: application.user.email,

@@ -6,10 +6,7 @@ import { Application } from './graphql/application.entity';
 import { ApplicationResolver } from './graphql/application.resolver';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Application]),
-    TypeOrmModule.forFeature([User]),
-  ],
+  imports: [TypeOrmModule.forFeature([Application, User])],
   providers: [ApplicationService, ApplicationResolver],
   exports: [ApplicationService],
 })
