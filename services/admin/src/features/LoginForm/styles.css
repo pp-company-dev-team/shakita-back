@@ -1,0 +1,9 @@
+.loginForm{
+    max-width: 320px;
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
