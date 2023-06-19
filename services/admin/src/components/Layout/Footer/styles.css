@@ -1,0 +1,9 @@
+footer {
+    width: 100vw;
+    height: 120px;
+    background-color: cadetblue;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }

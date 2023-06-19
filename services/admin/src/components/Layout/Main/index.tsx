@@ -1,20 +1,20 @@
 import { ReactNode } from "react";
 import Footer from "../Footer";
 import Header from "../Header";
-import "./styles.css";
 
-export type MinimalLayoutProps = {
+export type MainLayoutProps = {
   children: ReactNode;
 };
 
-const MinimalLayout: React.FC<MinimalLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <>
       <Header />
+      Main
       <main>{children}</main>
       <Footer />
     </>
   );
 };
 
-export default MinimalLayout;
+export default MainLayout;
