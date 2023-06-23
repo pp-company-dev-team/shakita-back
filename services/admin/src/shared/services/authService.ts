@@ -1,20 +1,35 @@
-import { GraphQLClient, request } from "graphql-request";
 import { login } from "@/generated/query/login";
+import { Tokens } from "../../../path/to/generated/types";
+import { query } from "@/shared/query";
 
-const endpoint = "http://localhost:3000/graphql";
 const tokensOutput = `
-accessToken
-refreshToken
+  accessToken
+  refreshToken
 `;
 
 export class AuthService {
-  async login(data: any) {
-    const graphQLClient = new GraphQLClient(endpoint);
-    const res = await graphQLClient.request(login(tokensOutput), data);
-    console.log("res", res);
+  public accessToken: string = "";
+  public refreshToken: string = "";
 
-    // const response = await request(endpoint, loginQuery, data);
-    // console.log("response", response);
+  public isAuth() {
+    this.accessToken !== "";
+  }
+
+  public setTokens() {
+    const tokensString = localStorage.getItem("tokens");
+    if (tokensString && tokensString !== "undefined") {
+      const tokens: Tokens = JSON.parse(tokensString);
+
+      this.accessToken = tokens.accessToken;
+      this.refreshToken = tokens.refreshToken;
+    }
+  }
+
+  async login(data: any) {
+    const res = await query(login(tokensOutput), data);
+    localStorage.setItem("tokens", JSON.stringify(res));
+
+    this.setTokens();
   }
 }
 
