@@ -1,7 +1,8 @@
 import { login } from "@/generated/query/login";
+import { QueryLoginArgs } from "@/generated/types";
 import { query } from "@/shared/query";
 export class AuthService {
-  async login(data: any) {
+  async login(data: QueryLoginArgs) {
     const res = await query(
       login({
         accessToken: true,
