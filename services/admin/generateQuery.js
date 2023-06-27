@@ -53,7 +53,7 @@ function build (schema, item, args){
   const resFunction = generateFunction(params, item.name);
   const outputData = generateOutputType(schema, item);
 
-  return `const ${item.name}QueryBody = \`${resFunction}\`\n\nexport const ${item.name} = (args: ${item.name}Output) => {\n\tconst outputStr = Object.entries(args).reduce((str, [key, value]) => {
+  return `const ${item.name}QueryBody = \`${resFunction}\`;\n\nexport const ${item.name} = (args: ${item.name}Output) => {\n\tconst outputStr = Object.entries(args).reduce((str, [key, value]) => {
       if(value){
         return str.concat(key + ' ');
       } else {
