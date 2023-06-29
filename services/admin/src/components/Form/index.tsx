@@ -22,7 +22,7 @@ export type FormProps = DetailedHTMLProps<
     children: ReactNode;
   };
 
-const Form: React.FC<FormProps> = ({ onValuesChange, ...props }) => {
+const Form: React.FC<FormProps> = ({ onValuesChange, onSubmit, ...props }) => {
   const methods = useForm({
     ...props,
     resolver: yupResolver(props?.validationSchema ?? yup.object({})),
@@ -38,8 +38,8 @@ const Form: React.FC<FormProps> = ({ onValuesChange, ...props }) => {
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit((data) => {
-          if (props.onSubmit) {
-            props.onSubmit(data);
+          if (onSubmit) {
+            onSubmit(data);
           }
         })}
         {...props}
