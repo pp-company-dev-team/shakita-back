@@ -337,15 +337,7 @@ const UsersPage = () => {
   };
 
   return (
-    <div
-      style={
-        {
-          // width: 400,
-          // height: 400,
-          // background: "blue",
-        }
-      }
-    >
+    <div>
       <ScrollTable data={data} updateData={updateData} />
     </div>
   );
