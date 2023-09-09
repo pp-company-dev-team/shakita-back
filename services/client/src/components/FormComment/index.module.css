@@ -1,0 +1,174 @@
+.headerWrapper {
+  padding: 1em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: black;
+  color: white;
+  border-bottom: 1px solid white;
+}
+
+.headerTitle {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.headerTitle img {
+  width: 4em;
+  height: auto;
+}
+
+.headerTitle h1 {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.headerNavBar {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.headerNavBar a {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  transition: 0.4s ease-in-out;
+}
+
+.headerNavBar a:hover {
+  opacity: 0.7;
+}
+
+.headerButtonAuth {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  font-size: 20px;
+  font-weight: 600;
+  transition: 0.4s ease-in-out;
+}
+
+.headerButtonAuth:hover {
+  opacity: 0.7;
+}
+
+.headerIcon {
+  width: 40px;
+  height: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.stroke {
+  height: 2px;
+  width: 40px;
+  background: white;
+}
+.strokeOpen {
+  height: 2px;
+  width: 20px;
+  background: white;
+}
+
+@media (min-width: 0px) {
+  .headerNavBar a {
+    display: none;
+  }
+  .headerButtonAuth {
+    display: none;
+  }
+  .logo {
+    display: block;
+  }
+  .header-icon {
+    display: flex;
+  }
+}
+
+@media (min-width: 982px) {
+  .headerNavBar a {
+    display: block;
+  }
+  .headerButtonAuth {
+    display: block;
+  }
+  .headerIcon {
+    display: none;
+  }
+}
+
+.headerForPhone {
+  min-height: 60vh;
+  padding: 5vh 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 4em;
+}
+
+.headerForPhone a {
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+  transition: all 0.2s linear;
+}
+
+.headerForPhone a:hover {
+  opacity: 0.7;
+}
+
+.header-links-contact-us {
+  font-size: 24px;
+  font-weight: 500;
+  padding: 0.5em 2em;
+  border: 1px solid #77799f;
+  border-radius: 45px;
+  background: linear-gradient(
+    110.1deg,
+    rgba(23, 76, 77, 0.75) 19.83%,
+    rgba(0, 0, 0, 0.75) 52.74%,
+    rgba(71, 62, 100, 0.75) 84.97%
+  );
+}
+
+.headerForPhoneLinks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.headerForPhoneButtonAuth {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  font-size: 20px;
+  font-weight: 600;
+  transition: 0.4s ease-in-out;
+}
+/* .header-for-phone-languages {
+  display: flex;
+  gap: 1em;
+  label {
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  .header-for-phone-languages-current {
+    text-decoration: underline;
+  } */

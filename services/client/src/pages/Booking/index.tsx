@@ -1,12 +1,14 @@
 "use client";
 import FormBooking from "@/components/FormBooking";
 import { StyledBookingPage } from "@/styled-components/Booking";
+// import Map from "@/components/Map";
 import React, { useEffect, useState } from "react";
 import store from "../../stores/calendarStore";
 import styles from "./index.module.css";
 import { TablesActiveType, TablesType } from "../../types";
 import CalendarOpen from "@/components/Calendar/CalendarOpen";
 import { observer } from "mobx-react-lite";
+import FormComment from "@/components/FormComment";
 
 const BookingPage = () => {
   const [tables, setTables] = useState<TablesType[]>([]);
@@ -107,7 +109,9 @@ const BookingPage = () => {
         $choosed_table={tablesChoosed}
       >
         <FormBooking />
+        {/* <Map /> */}
       </StyledBookingPage>
+      <FormComment />
       <CalendarOpen />
     </>
   );

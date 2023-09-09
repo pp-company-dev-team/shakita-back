@@ -1,21 +1,23 @@
 import { makeAutoObservable } from "mobx";
 
 class MessageStore {
-message = {
+  message = {
     username: "",
-      message: "",
-      parentId: 0,
-      id: Date.now(),
-      event: "message"
-}
-  
+    message: "",
+    parentId: 0,
+    id: Date.now(),
+    event: "message",
+  };
+
   constructor() {
     makeAutoObservable(this);
   }
 
   addField(value: string | number, name: string) {
     this.message = { ...this.message, [name]: value };
-    console.log(this.message.parentId)
+    console.log(this.message.parentId);
   }
 }
-export default new MessageStore();
+
+const store = new MessageStore();
+export default store;
