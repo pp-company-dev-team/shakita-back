@@ -85,9 +85,15 @@ const FormComment = () => {
         </div>
 
         <CheckBoxComponet>
-          <span>Test</span>
+          <input type="checkbox" required />
         </CheckBoxComponet>
-        <Button>Add Commnet</Button>
+        <Button
+          size="large"
+          $backcolor="rgb(218, 64, 64)"
+          $backcolor_hover="red"
+        >
+          Add Commnet
+        </Button>
       </form>
     </div>
   );

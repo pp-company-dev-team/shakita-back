@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.1",
@@ -14,6 +15,10 @@
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
+    "apollo-client": "^2.6.10",
+    "apollo-link-context": "^1.0.20",
+    "apollo-link-http": "^1.5.17",
+    "graphql-request": "^6.1.0",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
     "mobx": "^6.10.2",
@@ -30,6 +35,11 @@
     "yup": "^1.0.2"
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.26"
+    "@types/styled-components": "^5.1.26",
+    "@graphql-codegen/cli": "^4.0.1",
+    "@graphql-codegen/introspection": "^4.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.0",
+    "graphql": "^16.6.0",
+    "next": "13.4.4"
   }
 }

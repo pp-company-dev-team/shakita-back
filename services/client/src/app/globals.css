@@ -143,3 +143,15 @@ a {
     font-size: 0.75em;
   }
 }
+
+.inputs-form p {
+  height: 1.25em;
+  max-width: 300px;
+  margin: 0;
+  word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: red;
+  font-size: 12px;
+}

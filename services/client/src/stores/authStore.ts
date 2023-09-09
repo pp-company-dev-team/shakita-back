@@ -1,15 +1,21 @@
-import {makeAutoObservable} from "mobx";
+import { makeAutoObservable } from "mobx";
 
 class AuthStore {
   user = {
-    id: "",
+    email: "",
     password: "",
     username: "",
+    phone: "",
   };
   activeUser = {
     name: "",
     accessToken: "",
     refreshToken: "",
+  };
+  resetpassword = {
+    code: "",
+    oldpassword: "",
+    newpassword: "",
   };
   ok = false;
   message = "";
@@ -17,9 +23,16 @@ class AuthStore {
     makeAutoObservable(this);
   }
 
-  addField(value: string, name: string) {
-    this.user = {...this.user, [name]: value};
+  addField(event: React.SyntheticEvent) {
+    let target = event.target as HTMLInputElement;
+    this.user = { ...this.user, [target.name]: target.value };
   }
+
+  addFieldReset(event: React.SyntheticEvent) {
+    let target = event.target as HTMLInputElement;
+    this.resetpassword = { ...this.resetpassword, [target.name]: target.value };
+  }
+
   async signUp() {
     try {
       const data = await fetch("http://localhost:4200/auth/signup", {
@@ -70,4 +83,6 @@ class AuthStore {
     }
   }
 }
-export default new AuthStore();
+
+const store = new AuthStore();
+export default store;
