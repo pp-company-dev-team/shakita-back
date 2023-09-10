@@ -77,7 +77,7 @@
       "args": [],
       "type": "shell",
       "problemMatcher": []
-    }
+    },
     {
       "label": "l-admin",
       "command": "cd services && make upl NAME=admin",
@@ -91,6 +91,6 @@
       "args": [],
       "type": "shell",
       "problemMatcher": []
-    },
+    }
   ]
 }
