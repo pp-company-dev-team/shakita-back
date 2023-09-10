@@ -1,5 +1,5 @@
 import { GraphQLClient } from "graphql-request";
-import { Tokens } from "../../../path/to/generated/types";
+import { Tokens } from "@/generated/types";
 
 const endpoint = "http://localhost:3000/graphql";
 
